@@ -1,0 +1,9 @@
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\bin\Debug\ColourPicker.exe.config
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\bin\Debug\ColourPicker.exe
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\bin\Debug\ColourPicker.pdb
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.Properties.Resources.resources
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.csproj.GenerateResource.Cache
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.exe
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.pdb
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.ColourPicker.resources
+E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.csprojResolveAssemblyReference.cache
