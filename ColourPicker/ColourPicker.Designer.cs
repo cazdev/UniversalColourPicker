@@ -36,10 +36,6 @@
             this.LblRGB = new System.Windows.Forms.Label();
             this.MoveMouse = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-
-            ColourPicker.Start();
-            ColourPicker.MouseAction += new System.EventHandler(Event);
-
             // 
             // BtnCopyHex
             // 
@@ -114,6 +110,7 @@
             this.Name = "ColourPicker";
             this.Text = "ColourPicker";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColourPicker_FormClosing);
             this.ResumeLayout(false);
 
         }

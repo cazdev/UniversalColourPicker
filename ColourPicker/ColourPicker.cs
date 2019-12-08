@@ -16,71 +16,12 @@ namespace ColourPicker
     public partial class ColourPicker : Form
     {
 
+        // RGB value
         public static string rgb = "255, 255, 255";
+        // HEX value
         public static string hex = "FFFFFF";
 
-        public ColourPicker()
-        {
-            InitializeComponent();
-        }
-
-        [DllImport("user32.dll")]
-        static extern bool GetCursorPos(ref Point lpPoint);
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
-
-        Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
-        public Color GetColorAt(Point location)
-        {
-            using (Graphics gdest = Graphics.FromImage(screenPixel))
-            {
-                using (Graphics gsrc = Graphics.FromHwnd(IntPtr.Zero))
-                {
-                    IntPtr hSrcDC = gsrc.GetHdc();
-                    IntPtr hDC = gdest.GetHdc();
-                    int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, location.X, location.Y, (int)CopyPixelOperation.SourceCopy);
-                    gdest.ReleaseHdc();
-                    gsrc.ReleaseHdc();
-                }
-            }
-
-            return screenPixel.GetPixel(0, 0);
-        }
-
-        private void Event(object sender, EventArgs e)
-        {
-            Point cursor = new Point();
-            GetCursorPos(ref cursor);
-
-            if (!new RectangleF(this.Location.X, this.Location.Y, this.Width, this.Height).Contains(cursor))
-            {
-                var c = GetColorAt(cursor);
-                this.BackColor = c;
-
-                rgb = $"{c.R}, {c.G}, {c.B}";
-
-                hex = c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
-
-                LblRGB.Text = rgb;
-
-                LblHex.Text = hex;
-            }
-        }
-
-        public static event EventHandler MouseAction = delegate { };
-
-        public static void Start()
-        {
-            _hookID = SetHook(_proc);
-
-
-        }
-        public static void stop()
-        {
-            UnhookWindowsHookEx(_hookID);
-        }
-
+        // Hook Setup
         private static LowLevelMouseProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
 
@@ -137,9 +78,17 @@ namespace ColourPicker
             public IntPtr dwExtraInfo;
         }
 
+        // Global cursor position
+        [DllImport("user32.dll")]
+        static extern bool GetCursorPos(ref Point lpPoint);
+
+        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+        public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
+
+        // Windows hook
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook,
-          LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
+            LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -152,14 +101,98 @@ namespace ColourPicker
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
+        // MouseAction event hook
+        public static event EventHandler MouseAction = delegate { };
+
+        // ColourPicker constructor
+        public ColourPicker()
+        {
+            InitializeComponent();
+
+            //Custom global mouse click event
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColourPicker));
+            this.BtnCopyHex = new System.Windows.Forms.Button();
+            this.LblHex = new System.Windows.Forms.Label();
+            this.BtnCopyRGB = new System.Windows.Forms.Button();
+            this.LblRGB = new System.Windows.Forms.Label();
+            this.MoveMouse = new System.Windows.Forms.Timer(this.components);
+            this.SuspendLayout();
+
+            ColourPicker.Start();
+            ColourPicker.MouseAction += new System.EventHandler(MouseClickEvent);
+        }
+
+        // Start hook
+        public static void Start()
+        {
+            _hookID = SetHook(_proc);
+
+
+        }
+        // Stop hook
+        public static void Stop()
+        {
+            UnhookWindowsHookEx(_hookID);
+        }
+
+        // Get Colour of pixel at specified pixel coordinates
+        public Color GetColorAt(Point location)
+        {
+            Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+
+            using (Graphics gdest = Graphics.FromImage(screenPixel))
+            {
+                using (Graphics gsrc = Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    IntPtr hSrcDC = gsrc.GetHdc();
+                    IntPtr hDC = gdest.GetHdc();
+                    int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, location.X, location.Y, (int)CopyPixelOperation.SourceCopy);
+                    gdest.ReleaseHdc();
+                    gsrc.ReleaseHdc();
+                }
+            }
+
+            return screenPixel.GetPixel(0, 0);
+        }
+
+        // Global mouse click event
+        private void MouseClickEvent(object sender, EventArgs e)
+        {
+            Point cursor = new Point();
+            GetCursorPos(ref cursor);
+
+            if (!new RectangleF(this.Location.X, this.Location.Y, this.Width, this.Height).Contains(cursor))
+            {
+                var c = GetColorAt(cursor);
+                this.BackColor = c;
+
+                rgb = $"{c.R}, {c.G}, {c.B}";
+
+                hex = c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+
+                LblRGB.Text = rgb;
+
+                LblHex.Text = hex;
+            }
+        }
+
         private void BtnCopyRGB_Click(object sender, EventArgs e)
         {
+            // Copy RGB to clipboard
             Clipboard.SetText(rgb);
         }
 
         private void BtnCopyHex_Click(object sender, EventArgs e)
         {
+            // Copy HEX to clipboard
             Clipboard.SetText(hex);
+        }
+
+        private void ColourPicker_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Unhook
+            Stop();
         }
     }
     

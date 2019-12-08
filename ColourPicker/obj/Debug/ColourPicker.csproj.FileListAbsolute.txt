@@ -7,3 +7,12 @@ E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.
 E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.pdb
 E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.ColourPicker.resources
 E:\Users\Chaz\Desktop\VS Stuff\ColourPicker\ColourPicker\obj\Debug\ColourPicker.csprojResolveAssemblyReference.cache
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\bin\Debug\ColourPicker.exe.config
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\bin\Debug\ColourPicker.exe
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\bin\Debug\ColourPicker.pdb
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.csprojAssemblyReference.cache
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.ColourPicker.resources
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.Properties.Resources.resources
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.csproj.GenerateResource.cache
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.exe
+E:\Users\Chaz\source\repos\UniversalColourPicker\ColourPicker\obj\Debug\ColourPicker.pdb
