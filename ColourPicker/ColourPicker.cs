@@ -112,10 +112,6 @@ namespace ColourPicker
             //Custom global mouse click event
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColourPicker));
-            this.BtnCopyHex = new System.Windows.Forms.Button();
-            this.LblHex = new System.Windows.Forms.Label();
-            this.BtnCopyRGB = new System.Windows.Forms.Button();
-            this.LblRGB = new System.Windows.Forms.Label();
             this.MoveMouse = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
 
@@ -171,9 +167,10 @@ namespace ColourPicker
 
                 hex = c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
 
-                LblRGB.Text = rgb;
+                Console.WriteLine(rgb + " - " + hex);
 
-                LblHex.Text = hex;
+                lblRGB.Text = rgb;
+                lblHex.Text = hex;
             }
         }
 
